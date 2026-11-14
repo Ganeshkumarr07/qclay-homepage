@@ -1,0 +1,261 @@
+/* The section is a tall "scroll track". Inside it, .discover-sticky stays on screen
+   (position: sticky) while the page scrolls through the track. */
+.discover-section {
+  position: relative;
+  height: 360svh;
+  background: #f4f4f2;
+  color: #111;
+  text-align: center;
+}
+
+.discover-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+/* ---------- Title + small tools ---------- */
+.discover-section h2.discover-title {
+  position: absolute;
+  top: 6svh;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  margin: 0;
+  color: #111;
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 400;
+  line-height: 122%;
+  letter-spacing: -0.02em;
+}
+
+.discover-tools {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.discover-mini {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 50%;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+}
+
+.discover-mini:focus-visible {
+  outline: 2px solid var(--accent, #aa3bff);
+  outline-offset: 2px;
+}
+
+/* ---------- Columns ---------- */
+.discover-columns {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: start;
+  gap: 14px;
+  padding: 0 clamp(12px, 1.6vw, 24px);
+  box-sizing: border-box;
+}
+
+.discover-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+/* ---------- Tiles ---------- */
+.discover-tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #cfd3d6;
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.discover-tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.18); /* extra room so the inner drift never shows an edge */
+  will-change: transform;
+}
+
+.discover-tile-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 55%);
+}
+
+.discover-tile-arrow {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.discover-tile:hover .discover-tile-arrow,
+.discover-tile:focus-visible .discover-tile-arrow {
+  transform: rotate(45deg);
+  background: #f1ede4;
+}
+
+.discover-tile:focus-visible {
+  outline: 2px solid var(--accent, #aa3bff);
+  outline-offset: 3px;
+}
+
+.discover-tile-label {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.discover-tile-num {
+  font-size: 9px;
+  opacity: 0.75;
+}
+
+.discover-tile-name {
+  font-size: clamp(12px, 1.05vw, 15px);
+  line-height: 120%;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Closing note ---------- */
+.discover-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 4px 0;
+  text-align: center;
+}
+
+.discover-note p {
+  margin: 0;
+  max-width: 24ch;
+  color: #222;
+  font-size: 11px;
+  line-height: 145%;
+  letter-spacing: 0;
+}
+
+.discover-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 4px 4px;
+  border-radius: 999px;
+  background: #1d1d1f;
+  color: #fff;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.discover-pill:focus-visible {
+  outline: 2px solid var(--accent, #aa3bff);
+  outline-offset: 3px;
+}
+
+.discover-pill-icon {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 700px) {
+  .discover-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  /* outer columns are dropped on phones so tiles stay readable */
+  .discover-col:first-child,
+  .discover-col:last-child {
+    display: none;
+  }
+
+  .discover-tile-arrow {
+    width: 22px;
+    height: 22px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .discover-tile-label {
+    left: 10px;
+    bottom: 10px;
+  }
+}
+
+/* ---------- Reduced motion: plain, static layout ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .discover-section {
+    height: auto;
+    padding: 8svh 0 48px;
+  }
+
+  .discover-sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .discover-section h2.discover-title {
+    position: static;
+    margin-bottom: 32px;
+  }
+
+  .discover-tools {
+    position: static;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .discover-columns {
+    position: static;
+  }
+
+  .discover-col {
+    padding-top: 0 !important;
+  }
+}

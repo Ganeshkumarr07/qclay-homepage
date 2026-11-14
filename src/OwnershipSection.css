@@ -1,0 +1,142 @@
+.ownership-section {
+  --size: clamp(100px, 27vw, 320px);
+
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: #232323;
+  color: #fff;
+  text-align: center;
+}
+
+.ownership-inner {
+  position: relative;
+  height: 100%;
+}
+
+.ownership-section h2.ownership-title {
+  position: absolute;
+  top: 14%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 120%;
+}
+
+/* ---------- Stage ---------- */
+.ownership-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ownership-circles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ownership-circle {
+  flex: none;
+  width: var(--size);
+  aspect-ratio: 1;
+  margin-inline: calc(var(--size) * -0.01); /* circles sit side by side, just touching (centres 0.98 x size apart) */
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  will-change: transform;
+}
+
+.ownership-circle-label {
+  max-width: 62%;
+  font-size: clamp(9px, 0.9vw, 12px);
+  line-height: 135%;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* centre text, only visible once the circles have merged */
+.ownership-core {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(11px, 1.1vw, 14px);
+  line-height: 135%;
+  color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---------- Catalog pill ---------- */
+.ownership-pill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% + var(--size) / 2 + 36px);
+  margin-inline: auto;
+  width: max-content;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 999px;
+  background: #3a3a3d;
+  color: #fff;
+  font-size: 11px;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ownership-pill:focus-visible {
+  outline: 2px solid var(--accent, #aa3bff);
+  outline-offset: 3px;
+}
+
+.ownership-pill-icon {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+}
+
+.ownership-pill-text {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  padding-right: 0;
+}
+
+/* ---------- Reduced motion: show a static, readable state ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ownership-pill {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ownership-pill-text {
+    max-width: none;
+    opacity: 1;
+    padding: 0 12px 0 8px;
+  }
+}
+
+@media (max-width: 900px) {
+  .ownership-section h2.ownership-title {
+    top: 12%;
+  }
+}
